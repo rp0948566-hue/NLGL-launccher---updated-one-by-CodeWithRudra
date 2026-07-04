@@ -15,7 +15,7 @@
   },
   "build": {
     "appId": "com.nightlight.launcher",
-    "productName": "Nightlight Launcher",
+    "productName": "NLGL-launccher---updated-one-by-CodeWithRudra",
     "win": {
       "icon": "assets/icon.png",
       "target": "nsis"

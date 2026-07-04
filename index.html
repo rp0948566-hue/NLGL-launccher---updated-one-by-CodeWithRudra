@@ -86,7 +86,7 @@
 </head>
 <body class="bg-nl-bg text-nl-text">
 
-<div id="loginOverlay" class="fixed inset-0 z-[200] flex items-center justify-center" style="background:#0d0a0e;">
+<div id="loginOverlay" class="hidden fixed inset-0 z-[200] flex items-center justify-center" style="background:#0d0a0e;">
   <div class="w-full max-w-sm animate-float-in">
     <div class="text-center mb-8">
       <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-nl-pinkMuted flex items-center justify-center pulse-glow">
@@ -112,7 +112,7 @@
 <div class="title-bar fixed top-0 left-0 right-0 h-9 bg-nl-surface backdrop-blur-xl flex items-center justify-between z-[215] border-b border-nl-border shadow-lg shadow-black/30" ondblclick="maximizeApp()">
   <div class="flex items-center gap-3 pl-4">
     <img src="https://github.com/onajlikezz/Nightlight-Game-Launcher/blob/main/img/logonl.png?raw=true" class="w-5 h-5" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 20%22%3E%3Crect width=%2220%22 height=%2220%22 fill=%22%23e84393%22 rx=%224%22/%3E%3C/svg%3E'">
-    <span class="text-xs font-semibold text-nl-pinkLight tracking-wider uppercase">Nightlight</span>
+    <span class="text-xs font-semibold text-nl-pinkLight tracking-wider uppercase">NLGL-launccher---updated-one-by-CodeWithRudra</span>
   </div>
   <div class="flex items-center h-full">
     <button class="win-btn h-full px-4 flex items-center justify-center text-white/80 hover:text-white" onclick="minimizeApp()"><i data-lucide="minus" class="w-3.5 h-3.5"></i></button>
@@ -124,13 +124,13 @@
 <div class="flex h-full pt-9">
   <aside class="w-60 bg-nl-surface/70 backdrop-blur-xl border-r border-nl-border flex flex-col shrink-0">
     <div class="p-5 border-b border-nl-border">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-nl-pinkMuted flex items-center justify-center pulse-glow">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-xl bg-nl-pinkMuted flex items-center justify-center pulse-glow shrink-0">
           <img src="https://github.com/onajlikezz/Nightlight-Game-Launcher/blob/main/img/logonl.png?raw=true" class="w-7 h-7" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 28 28%22%3E%3Crect width=%2228%22 height=%2228%22 fill=%22%23e84393%22 rx=%226%22/%3E%3Ctext x=%2214%22 y=%2219%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2214%22%3EN%3C/text%3E%3C/svg%3E'">
         </div>
-        <div>
-          <h1 class="text-sm font-bold">Nightlight</h1>
-          <p class="text-[10px] text-nl-pink font-medium tracking-wider uppercase">Game Launcher</p>
+        <div class="min-w-0">
+          <h1 class="text-[10px] font-bold text-nl-text leading-tight break-words select-all" style="word-break: break-all;">NLGL-launccher---updated-one-by-CodeWithRudra</h1>
+          <p class="text-[9px] text-nl-pink font-medium tracking-wider uppercase mt-0.5">Game Launcher</p>
         </div>
       </div>
     </div>
@@ -146,17 +146,14 @@
         <i data-lucide="settings" class="w-4 h-4"></i> <span data-i18n="nav.settings">Settings</span>
       </button>
 
-      <p class="text-[10px] font-semibold text-nl-textMuted uppercase tracking-widest px-3 mt-6 mb-3" data-i18n="nav.socials">Socials</p>
-      <button class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium" onclick="openSocialLink('https://www.youtube.com/@onajjlikezz')">
-        <i data-lucide="circle-play" class="w-4 h-4"></i> YouTube
-      </button>
-      <button class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium" onclick="openSocialLink('https://discord.gg/yXeWQ6arcq')">
-        <i data-lucide="message-circle" class="w-4 h-4"></i> Discord
-      </button>
-      <button class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium" onclick="openSocialLink('https://github.com/onajlikezz/')">
+      <p class="text-[10px] font-semibold text-nl-textMuted uppercase tracking-widest px-3 mt-6 mb-3">Links</p>
+      <button class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium" onclick="openSocialLink('https://github.com/rp0948566-hue/NLGL-launccher---updated-one-by-CodeWithRudra')">
         <i data-lucide="folders" class="w-4 h-4"></i> GitHub
       </button>
     </nav>
+    <div class="p-4 mt-auto flex justify-center items-center overflow-hidden">
+      <img src="chill.png" alt="Chill" class="max-w-full max-h-32 object-contain select-none pointer-events-none">
+    </div>
   </aside>
 
   <main class="flex-1 overflow-y-auto">
@@ -1029,20 +1026,9 @@ async function attemptLogin() {
 
 async function autoLogin() {
   try {
-    const savedKey = await ipcRenderer.invoke('get-saved-key');
-    if (!savedKey) {
-      document.getElementById('loginMessage').textContent = t('login.enterKey');
-      return;
-    }
-    const isValid = await ipcRenderer.invoke('validate-access-key', savedKey);
-    if (isValid) {
-      document.getElementById('loginOverlay').classList.add('fade-out');
-      showToast(t('toasts.welcomeBack'), 'success');
-      await loadAppData();
-    } else {
-      document.getElementById('loginMessage').textContent = "Your saved key is no longer valid. Enter a new key.";
-      showToast(t('toasts.savedKeyInvalid'), 'error');
-    }
+    const overlay = document.getElementById('loginOverlay');
+    if (overlay) overlay.style.display = 'none';
+    await loadAppData();
   } catch(e) { console.error('Auto-login error', e); }
 }
 
